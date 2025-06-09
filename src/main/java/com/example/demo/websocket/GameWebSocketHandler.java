@@ -15,18 +15,21 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
+
 public class GameWebSocketHandler extends TextWebSocketHandler {
 
-	public GameWebSocketHandler(PlayerRepository playerRepository) {
-	    this.playerRepository = playerRepository;
-	}
 	
-    @Autowired
-    private PlayerStatsRepository playerStatsRepository;
+	private final PlayerStatsRepository playerStatsRepository;
+	private final PlayerRepository playerRepository;  // ✅ 修正名稱
 
-    @Autowired
-    private PlayerRepository playerRepository;
+	public GameWebSocketHandler(PlayerStatsRepository statsRepo, PlayerRepository playerRepo) {
+	    this.playerStatsRepository = statsRepo;
+	    this.playerRepository = playerRepo;
+	}
+
+
+	
+   
 
     private final Map<String, PlayerStats> userData = new ConcurrentHashMap<>();
 
